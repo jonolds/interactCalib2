@@ -1,0 +1,10 @@
+﻿  calibControl.cpp
+  calibPipeline.cpp
+  FrameProc.cpp
+  main.cpp
+  paramsControl.cpp
+  rotationConverters.cpp
+  Generating code
+  All 1270 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  interactCalib2.vcxproj -> C:\stuff\robots\x64\Release\interactCalib2.exe
