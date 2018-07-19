@@ -8,4 +8,7 @@
     <LocalDebuggerCommandArguments>-t=charuco -pf=defaultConfig.xml -w=6 -h=4 -d=.5</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
+  <PropertyGroup>
+    <ShowAllFiles>false</ShowAllFiles>
+  </PropertyGroup>
 </Project>

@@ -1,13 +1,13 @@
 #ifndef CALIB_CONTROLLER_HPP
 #define CALIB_CONTROLLER_HPP
 #include "calibCommon.hpp"
+#include <opencv2/core.hpp>
 #include <stack>
 #include <string>
-#include <ostream>
 namespace calib {
 	class CalibControl {
 	protected:
-		cv::Ptr<CalibData> mCalibData;
+		Ptr<CalibData> mCalibData;
 		int mCalibFlags;
 		unsigned mMinFramesNum;
 		bool mNeedTuning;
@@ -17,7 +17,7 @@ namespace calib {
 		double estimateCoverageQuality();
 	public:
 		CalibControl();
-		CalibControl(cv::Ptr<CalibData> data, int initialFlags, bool autoTuning, int minFramesNum);
+		CalibControl(Ptr<CalibData> data, int initialFlags, bool autoTuning, int minFramesNum);
 
 		void updateState();
 		bool getCommonCalibrationState() const;
@@ -29,15 +29,14 @@ namespace calib {
 
 	class CalibDataControl {
 	protected:
-		cv::Ptr<CalibData> mCalibData;
-		std::stack<cameraParameters> mParamsStack;
+		Ptr<CalibData> mCalibData;
+		std::stack<CamParams> mParamsStack;
 		std::string mParamsFileName;
 		unsigned mMaxFramesNum;
 		double mAlpha;
-
 		double estimateGridSubsetQuality(size_t excludedIndex);
 	public:
-		CalibDataControl(cv::Ptr<CalibData> data, int maxFrames, double convParameter);
+		CalibDataControl(Ptr<CalibData> data, int maxFrames, double convParameter);
 		CalibDataControl();
 
 		void filterFrames();

@@ -1,6 +1,7 @@
 #ifndef ROTATION_CONVERTERS_HPP
 #define ROTATION_CONVERTERS_HPP
 #include <opencv2/core.hpp>
+
 namespace calib {
 #define CALIB_RADIANS 0
 #define CALIB_DEGREES 1

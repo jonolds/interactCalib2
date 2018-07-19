@@ -1,10 +1,17 @@
-﻿  calibControl.cpp
+﻿  FrameProc.cpp
+c:\stuff\robots\interactcalib2\calibcommon.hpp(53): warning C4305: 'initializing': truncation from 'double' to 'float'
+  calibControl.cpp
+c:\stuff\robots\interactcalib2\calibcommon.hpp(53): warning C4305: 'initializing': truncation from 'double' to 'float'
   calibPipeline.cpp
-  FrameProc.cpp
+c:\stuff\robots\interactcalib2\calibcommon.hpp(53): warning C4305: 'initializing': truncation from 'double' to 'float'
   main.cpp
+c:\stuff\robots\interactcalib2\calibcommon.hpp(53): warning C4305: 'initializing': truncation from 'double' to 'float'
   paramsControl.cpp
+c:\stuff\robots\interactcalib2\calibcommon.hpp(53): warning C4305: 'initializing': truncation from 'double' to 'float'
   rotationConverters.cpp
   Generating code
-  All 1270 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  22 of 1121 functions ( 2.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    14 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   interactCalib2.vcxproj -> C:\stuff\robots\x64\Release\interactCalib2.exe

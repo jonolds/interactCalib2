@@ -6,12 +6,12 @@
 namespace calib {
 	class ParamsControl {
 	protected:
-		CaptureParams capParams;
-		InternalParams mInternalParameters;
+		CapParams capParams;
+		InternalParams mIntParams;
 	public:
 		bool loadFromFile(const std::string& inFile);
 		ParamsControl();
-		CaptureParams getCaptureParameters() const;
+		CapParams getCaptureParameters() const;
 		InternalParams getInternalParameters() const;
 		bool loadFromParser();
 	};

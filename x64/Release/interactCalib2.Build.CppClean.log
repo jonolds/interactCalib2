@@ -1,4 +1,10 @@
 c:\stuff\robots\interactcalib2\x64\release\vc141.pdb
+c:\stuff\robots\interactcalib2\x64\release\calibcontrol.sbr
+c:\stuff\robots\interactcalib2\x64\release\calibpipeline.sbr
+c:\stuff\robots\interactcalib2\x64\release\frameproc.sbr
+c:\stuff\robots\interactcalib2\x64\release\main.sbr
+c:\stuff\robots\interactcalib2\x64\release\paramscontrol.sbr
+c:\stuff\robots\interactcalib2\x64\release\rotationconverters.sbr
 c:\stuff\robots\interactcalib2\x64\release\rotationconverters.obj
 c:\stuff\robots\interactcalib2\x64\release\paramscontrol.obj
 c:\stuff\robots\interactcalib2\x64\release\main.obj
@@ -9,6 +15,9 @@ c:\stuff\robots\x64\release\interactcalib2.ipdb
 c:\stuff\robots\x64\release\interactcalib2.iobj
 c:\stuff\robots\x64\release\interactcalib2.exe
 c:\stuff\robots\x64\release\interactcalib2.pdb
+c:\stuff\robots\x64\release\interactcalib2.bsc
+c:\stuff\robots\interactcalib2\x64\release\interactcalib2.tlog\bscmake.command.1.tlog
+c:\stuff\robots\interactcalib2\x64\release\interactcalib2.tlog\bscmake.read.1.tlog
 c:\stuff\robots\interactcalib2\x64\release\interactcalib2.tlog\cl.command.1.tlog
 c:\stuff\robots\interactcalib2\x64\release\interactcalib2.tlog\cl.read.1.tlog
 c:\stuff\robots\interactcalib2\x64\release\interactcalib2.tlog\cl.write.1.tlog
