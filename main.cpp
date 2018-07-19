@@ -67,7 +67,7 @@ int main() {
 				globalData->imgSz = pipeline->getImageSize();
 				calibFlags = controller->getNewFlags();
 				globalData->totalAvgErr = calibrateCameraCharuco(globalData->allCharCorns, globalData->allCharIds,
-					charBoard, globalData->imgSz, globalData->camMat, globalData->distCos, noArray(), 
+					charBoard, globalData->imgSz, globalData->camMat, globalData->distCos, noArray(),
 					noArray(), globalData->stdDevs, noArray(), globalData->perViewErrors, calibFlags, solverTermCrit);
 				dataControl->updateUndistortMap();
 				dataControl->printParametersToConsole(cout);

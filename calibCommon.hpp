@@ -13,7 +13,6 @@ namespace calib {
 #define OVERLAY_DELAY 1000
 #define IMAGE_MAX_WIDTH 1280
 #define IMAGE_MAX_HEIGHT 720
-
 	struct CapParams {
 		//camera constants
 		int camID = 700;

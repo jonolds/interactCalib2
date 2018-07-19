@@ -6,14 +6,18 @@
 #include "FrameProc.hpp"
 
 namespace calib {
-	enum PipelineExitStatus { Finished, DeleteLastFrame, Calibrate, DeleteAllFrames,
-		SaveCurrentData, SwitchUndistort, SwitchVisualisation };
+	enum PipelineExitStatus {
+		Finished, DeleteLastFrame, Calibrate, DeleteAllFrames,
+		SaveCurrentData, SwitchUndistort, SwitchVisualisation
+	};
 	class CalibPipeline {
 	protected:
+		CapParams capParams;
 		Size mImageSize;
 		VideoCapture cap;
+		Size getCameraResolution();
 	public:
-		CalibPipeline() = default;
+		explicit CalibPipeline(CapParams params);
 		PipelineExitStatus start(std::vector<Ptr<FrameProc>> processors);
 		Size getImageSize() const;
 	};

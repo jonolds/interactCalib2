@@ -26,7 +26,7 @@ namespace calib {
 		Ptr<aruco::Dictionary> mArucoDict;
 		Ptr<aruco::CharucoBoard> mCharBoard;
 		int mNeededFramesNum, mCaptFrames;
-		int delay;
+		unsigned mCapDelay;
 		double mMaxTemplateOffset;
 		float mSqrSz, mTemplDist;
 		bool detectParseChAruco(const Mat& frame);
@@ -34,7 +34,7 @@ namespace calib {
 		void showCaptMsg(const Mat& frame, const std::string& message);
 		bool checkLastFrame();
 	public:
-		CalibProc(Ptr<CalibData> data);
+		CalibProc(Ptr<CalibData> data, CapParams& capParams);
 		Mat processFrame(const Mat& frame) override;
 		bool isProcessed() const override;
 		void resetState() override;

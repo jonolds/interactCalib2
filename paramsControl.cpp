@@ -8,8 +8,8 @@ template <typename T>
 static bool readFile(FileNode node, T& val) { if (!node.isNone())node >> val; return (!node.isNone()); }
 static bool chkAssert(bool val, const string& msg) { if (!val) cerr << "Error: " << msg; return val; }
 bool ParamsControl::loadFromFile(const string& inFile) {
-	
-	
+
+
 	FileStorage reader;
 	reader.open(inFile, FileStorage::READ);
 	if (!reader.isOpened()) { cerr << "Can't open " << inFile << "\n"; return true; }
