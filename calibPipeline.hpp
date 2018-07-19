@@ -10,12 +10,10 @@ namespace calib {
 		SaveCurrentData, SwitchUndistort, SwitchVisualisation };
 	class CalibPipeline {
 	protected:
-		CapParams capParams;
 		Size mImageSize;
 		VideoCapture cap;
-		Size getCameraResolution();
 	public:
-		explicit CalibPipeline(CapParams params);
+		CalibPipeline() = default;
 		PipelineExitStatus start(std::vector<Ptr<FrameProc>> processors);
 		Size getImageSize() const;
 	};

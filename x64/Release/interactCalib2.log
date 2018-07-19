@@ -1,17 +1,149 @@
-﻿  FrameProc.cpp
-c:\stuff\robots\interactcalib2\calibcommon.hpp(53): warning C4305: 'initializing': truncation from 'double' to 'float'
-  calibControl.cpp
-c:\stuff\robots\interactcalib2\calibcommon.hpp(53): warning C4305: 'initializing': truncation from 'double' to 'float'
+﻿  calibControl.cpp
   calibPipeline.cpp
-c:\stuff\robots\interactcalib2\calibcommon.hpp(53): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\stuff\robots\interactcalib2\frameproc.hpp(37): error C2061: syntax error: identifier 'CapParams'
+c:\stuff\robots\interactcalib2\calibpipeline.cpp(15): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  FrameProc.cpp
+c:\stuff\robots\interactcalib2\frameproc.hpp(37): error C2061: syntax error: identifier 'CapParams'
+c:\stuff\robots\interactcalib2\frameproc.cpp(91): error C2061: syntax error: identifier 'CapParams'
+c:\stuff\robots\interactcalib2\frameproc.cpp(91): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\frameproc.cpp(91): error C2228: left of '.boardSz' must have class/struct/union
+  c:\stuff\robots\interactcalib2\frameproc.cpp(91): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\frameproc.cpp(93): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\frameproc.cpp(93): error C2228: left of '.calibStep' must have class/struct/union
+  c:\stuff\robots\interactcalib2\frameproc.cpp(93): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\frameproc.cpp(94): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\frameproc.cpp(94): error C2228: left of '.capDelay' must have class/struct/union
+  c:\stuff\robots\interactcalib2\frameproc.cpp(94): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\frameproc.cpp(94): error C2228: left of '.fps' must have class/struct/union
+  c:\stuff\robots\interactcalib2\frameproc.cpp(94): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\frameproc.cpp(97): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\frameproc.cpp(97): error C2228: left of '.markLen' must have class/struct/union
+  c:\stuff\robots\interactcalib2\frameproc.cpp(97): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\frameproc.cpp(98): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\frameproc.cpp(98): error C2228: left of '.charDictName' must have class/struct/union
+  c:\stuff\robots\interactcalib2\frameproc.cpp(98): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\frameproc.cpp(99): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\frameproc.cpp(99): error C2228: left of '.sqrLen' must have class/struct/union
+  c:\stuff\robots\interactcalib2\frameproc.cpp(99): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\frameproc.cpp(100): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\frameproc.cpp(100): error C2228: left of '.charMarkSz' must have class/struct/union
+  c:\stuff\robots\interactcalib2\frameproc.cpp(100): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\frameproc.cpp(99): error C2660: 'cv::aruco::CharucoBoard::create': function does not take 3 arguments
+  c:\opencv\include\opencv2\aruco\charuco.hpp(100): note: see declaration of 'cv::aruco::CharucoBoard::create'
   main.cpp
-c:\stuff\robots\interactcalib2\calibcommon.hpp(53): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\stuff\robots\interactcalib2\frameproc.hpp(37): error C2061: syntax error: identifier 'CapParams'
+c:\stuff\robots\interactcalib2\paramscontrol.hpp(9): error C3646: 'capParams': unknown override specifier
+c:\stuff\robots\interactcalib2\paramscontrol.hpp(9): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\stuff\robots\interactcalib2\paramscontrol.hpp(14): error C3646: 'getCaptureParameters': unknown override specifier
+c:\stuff\robots\interactcalib2\paramscontrol.hpp(14): error C2059: syntax error: '('
+c:\stuff\robots\interactcalib2\paramscontrol.hpp(14): error C2238: unexpected token(s) preceding ';'
+c:\stuff\robots\interactcalib2\main.cpp(36): error C2065: 'CapParams': undeclared identifier
+c:\stuff\robots\interactcalib2\main.cpp(36): error C2146: syntax error: missing ';' before identifier 'capParams'
+c:\stuff\robots\interactcalib2\main.cpp(36): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\main.cpp(36): error C2039: 'getCaptureParameters': is not a member of 'calib::ParamsControl'
+  c:\stuff\robots\interactcalib2\paramscontrol.hpp(7): note: see declaration of 'calib::ParamsControl'
+c:\stuff\robots\interactcalib2\main.cpp(43): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\main.cpp(43): error C2228: left of '.minFramesNum' must have class/struct/union
+  c:\stuff\robots\interactcalib2\main.cpp(43): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\main.cpp(43): error C2661: 'calib::CalibControl::CalibControl': no overloaded function takes 3 arguments
+c:\stuff\robots\interactcalib2\main.cpp(44): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\main.cpp(44): error C2228: left of '.maxFramesNum' must have class/struct/union
+  c:\stuff\robots\interactcalib2\main.cpp(44): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\main.cpp(44): error C2661: 'calib::CalibDataControl::CalibDataControl': no overloaded function takes 2 arguments
+c:\stuff\robots\interactcalib2\main.cpp(47): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\main.cpp(50): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\main.cpp(75): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\main.cpp(75): error C2228: left of '.calibStep' must have class/struct/union
+  c:\stuff\robots\interactcalib2\main.cpp(75): note: type is 'unknown-type'
   paramsControl.cpp
-c:\stuff\robots\interactcalib2\calibcommon.hpp(53): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\stuff\robots\interactcalib2\paramscontrol.hpp(9): error C3646: 'capParams': unknown override specifier
+c:\stuff\robots\interactcalib2\paramscontrol.hpp(9): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\stuff\robots\interactcalib2\paramscontrol.hpp(14): error C3646: 'getCaptureParameters': unknown override specifier
+c:\stuff\robots\interactcalib2\paramscontrol.hpp(14): error C2059: syntax error: '('
+c:\stuff\robots\interactcalib2\paramscontrol.hpp(14): error C2238: unexpected token(s) preceding ';'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(16): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(16): error C2228: left of '.charDictName' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(16): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(16): error C2672: 'readFile': no matching overloaded function found
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(16): error C2780: 'bool readFile(cv::FileNode,T &)': expects 2 arguments - 1 provided
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(8): note: see declaration of 'readFile'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(17): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(17): error C2228: left of '.sqrLen' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(17): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(17): error C2672: 'readFile': no matching overloaded function found
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(17): error C2780: 'bool readFile(cv::FileNode,T &)': expects 2 arguments - 1 provided
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(8): note: see declaration of 'readFile'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(18): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(18): error C2228: left of '.charMarkSz' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(18): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(18): error C2672: 'readFile': no matching overloaded function found
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(18): error C2780: 'bool readFile(cv::FileNode,T &)': expects 2 arguments - 1 provided
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(8): note: see declaration of 'readFile'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(19): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(19): error C2228: left of '.camRes' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(19): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(19): error C2672: 'readFile': no matching overloaded function found
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(19): error C2780: 'bool readFile(cv::FileNode,T &)': expects 2 arguments - 1 provided
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(8): note: see declaration of 'readFile'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(20): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(20): error C2228: left of '.calibStep' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(20): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(20): error C2672: 'readFile': no matching overloaded function found
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(20): error C2780: 'bool readFile(cv::FileNode,T &)': expects 2 arguments - 1 provided
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(8): note: see declaration of 'readFile'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(21): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(21): error C2228: left of '.maxFramesNum' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(21): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(21): error C2672: 'readFile': no matching overloaded function found
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(21): error C2780: 'bool readFile(cv::FileNode,T &)': expects 2 arguments - 1 provided
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(8): note: see declaration of 'readFile'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(22): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(22): error C2228: left of '.minFramesNum' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(22): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(22): error C2672: 'readFile': no matching overloaded function found
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(22): error C2780: 'bool readFile(cv::FileNode,T &)': expects 2 arguments - 1 provided
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(8): note: see declaration of 'readFile'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(28): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(28): error C2228: left of '.charDictName' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(28): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(29): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(29): error C2228: left of '.charMarkSz' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(29): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(30): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(30): error C2228: left of '.sqrLen' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(30): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(31): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(31): error C2228: left of '.minFramesNum' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(31): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(32): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(32): error C2228: left of '.calibStep' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(32): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(33): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(33): error C2228: left of '.maxFramesNum' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(33): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(33): error C2228: left of '.minFramesNum' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(33): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(37): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(37): error C2228: left of '.camRes' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(37): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(37): error C2228: left of '.width' must have class/struct/union
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(37): error C2228: left of '.height' must have class/struct/union
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(43): error C2039: 'getCaptureParameters': is not a member of 'calib::ParamsControl'
+  c:\stuff\robots\interactcalib2\paramscontrol.hpp(7): note: see declaration of 'calib::ParamsControl'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(43): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(43): error C2146: syntax error: missing ';' before identifier 'getCaptureParameters'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(43): error C2143: syntax error: missing ';' before '{'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(43): error C2447: '{': missing function header (old-style formal list?)
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(46): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(46): error C2228: left of '.boardSz' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(46): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(47): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(47): error C2228: left of '.charDictName' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(47): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(48): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(48): error C2228: left of '.sqrLen' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(48): note: type is 'unknown-type'
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(49): error C2065: 'capParams': undeclared identifier
+c:\stuff\robots\interactcalib2\paramscontrol.cpp(49): error C2228: left of '.charMarkSz' must have class/struct/union
+  c:\stuff\robots\interactcalib2\paramscontrol.cpp(49): note: type is 'unknown-type'
   rotationConverters.cpp
-  Generating code
-  22 of 1121 functions ( 2.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    14 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  interactCalib2.vcxproj -> C:\stuff\robots\x64\Release\interactCalib2.exe

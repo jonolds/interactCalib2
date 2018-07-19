@@ -7,20 +7,12 @@ using namespace calib;
 using namespace std;
 using namespace cv;
 
-Size CalibPipeline::getCameraResolution() {
-	cap.set(CAP_PROP_FRAME_WIDTH, 1280);
-	cap.set(CAP_PROP_FRAME_HEIGHT, 720);
-	int w = int(cap.get(CAP_PROP_FRAME_WIDTH)), h = int(cap.get(CAP_PROP_FRAME_HEIGHT));
-	return Size(w, h);
-}
-CalibPipeline::CalibPipeline(CapParams params) : capParams(move(params)) {}
-
 PipelineExitStatus CalibPipeline::start(vector<Ptr<FrameProc>> processors) {
-	cap.open(capParams.camID);
-	cap.set(CAP_PROP_FRAME_WIDTH, 1280);
-	cap.set(CAP_PROP_FRAME_HEIGHT, 720);
+	cap.open(camID);
+	cap.set(CAP_PROP_FRAME_WIDTH, camRes.width);
+	cap.set(CAP_PROP_FRAME_HEIGHT, camRes.height);
 	cap.set(CAP_PROP_AUTOFOCUS, 0);
-	mImageSize = Size((int)cap.get(CAP_PROP_FRAME_WIDTH), (int)cap.get(CAP_PROP_FRAME_HEIGHT));
+	mImageSize = Size(cap.get(CAP_PROP_FRAME_WIDTH), cap.get(CAP_PROP_FRAME_HEIGHT));
 	if (!cap.isOpened())
 		throw runtime_error("Unable to open video source");
 	Mat frame, processedFrame;

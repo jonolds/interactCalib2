@@ -13,21 +13,25 @@ namespace calib {
 #define OVERLAY_DELAY 1000
 #define IMAGE_MAX_WIDTH 1280
 #define IMAGE_MAX_HEIGHT 720
-	//camera constants
-	static const int camID = 700;
-	static const Size camRes = Size(1280, 720);
-	static const int fps = 20;
-	static const int capDelay = 500;
-	//board constants
-	static const int charDictName = 10;
-	static const Size boardSz = Size(5, 7);
-	static const float sqrLen = 35.0f;
-	static const float markLen = 16.3f;
-	static const int charMarkSz = 17;
-	//calibration constants
-	static const int calibStep = 1;
-	static const int maxFramesNum = 30;
-	static const int minFramesNum = 10;
+
+	struct CapParams {
+		//camera constants
+		int camID = 700;
+		Size camRes = Size(1280, 720);
+		int fps = 20;
+		int capDelay = 500;
+		//board constants
+		int charDictName = 10;
+		Size boardSz = Size(5, 7);
+		float sqrLen = 35.0f;
+		float markLen = 16.3f;
+		int charMarkSz = 17;
+		//calibration constants
+		int calibStep = 1;
+		int maxFramesNum = 30;
+		int minFramesNum = 10;
+		CapParams() = default;
+	};
 
 	bool showOverlayMessage(const string& message);
 	Ptr<aruco::CharucoBoard> makePrintBoard();
