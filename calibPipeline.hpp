@@ -13,13 +13,13 @@ namespace calib {
 	class CalibPipeline {
 	protected:
 		CapParams capParams;
-		Size mImageSize;
-		VideoCapture cap;
-		Size getCameraResolution();
+		cv::Size mImageSize;
+		cv::VideoCapture cap;
+		cv::Size getCameraResolution();
 	public:
 		explicit CalibPipeline(CapParams params);
-		PipelineExitStatus start(std::vector<Ptr<FrameProc>> processors);
-		Size getImageSize() const;
+		PipelineExitStatus start(std::vector<cv::Ptr<FrameProc>> processors);
+		cv::Size getImageSize() const;
 	};
 }
 #endif

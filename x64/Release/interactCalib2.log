@@ -1,10 +1,7 @@
-﻿  calibControl.cpp
-  calibPipeline.cpp
-  FrameProc.cpp
-  main.cpp
-  paramsControl.cpp
-  rotationConverters.cpp
+﻿  main.cpp
   Generating code
-  All 1121 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  26 of 1071 functions ( 2.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    30 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   interactCalib2.vcxproj -> C:\stuff\robots\x64\Release\interactCalib2.exe

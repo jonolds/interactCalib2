@@ -1,8 +1,7 @@
 #include "calibPipeline.hpp"
 #include <opencv2/highgui.hpp>
 #include <stdexcept>
-#include <utility>
-#include <vector>
+
 using namespace calib;
 using namespace std;
 using namespace cv;

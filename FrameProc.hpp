@@ -1,5 +1,6 @@
 #ifndef FRAME_PROCESSOR_HPP
 #define FRAME_PROCESSOR_HPP
+
 #include <opencv2/core.hpp>
 #include <opencv2/calib3d.hpp>
 #include <opencv2/aruco/charuco.hpp>
@@ -10,32 +11,32 @@ namespace calib {
 	class FrameProc {
 	public:
 		virtual ~FrameProc() = default;
-		virtual Mat processFrame(const Mat& frame) = 0;
+		virtual cv::Mat processFrame(const cv::Mat& frame) = 0;
 		virtual bool isProcessed() const = 0;
 		virtual void resetState() = 0;
 	};
 
 	class CalibProc : public FrameProc {
 	protected:
-		Ptr<CalibData> mCalibData;
-		Size mBoardSize;
-		std::vector<Point2f> mTemplateLoc, mCurImgPts;
-		Mat mCurCharCorns, mCurCharIds;
-		Ptr<SimpleBlobDetector> mBlobDetectPtr;
+		cv::Ptr<CalibData> mCalibData;
+		cv::Size mBoardSize;
+		std::vector<cv::Point2f> mTemplateLoc, mCurImgPts;
+		cv::Mat mCurCharCorns, mCurCharIds;
+		cv::Ptr<cv::SimpleBlobDetector> mBlobDetectPtr;
 
-		Ptr<aruco::Dictionary> mArucoDict;
-		Ptr<aruco::CharucoBoard> mCharBoard;
+		cv::Ptr<cv::aruco::Dictionary> mArucoDict;
+		cv::Ptr<cv::aruco::CharucoBoard> mCharBoard;
 		int mNeededFramesNum, mCaptFrames;
-		unsigned mCapDelay;
+		unsigned mDelay;
 		double mMaxTemplateOffset;
 		float mSqrSz, mTemplDist;
-		bool detectParseChAruco(const Mat& frame);
+		bool detectParseChAruco(const cv::Mat& frame);
 		void saveFrameData();
-		void showCaptMsg(const Mat& frame, const std::string& message);
+		void showCaptMsg(const cv::Mat& frame, const std::string& message);
 		bool checkLastFrame();
 	public:
-		CalibProc(Ptr<CalibData> data, CapParams& capParams);
-		Mat processFrame(const Mat& frame) override;
+		CalibProc(cv::Ptr<CalibData> data, CapParams& capParams);
+		cv::Mat processFrame(const cv::Mat& frame) override;
 		bool isProcessed() const override;
 		void resetState() override;
 		~CalibProc() override = default;
@@ -45,17 +46,17 @@ namespace calib {
 
 	class ShowProc : public FrameProc {
 	protected:
-		Ptr<CalibData> mCaldata;
-		Ptr<CalibControl> mController;
+		cv::Ptr<CalibData> mCaldata;
+		cv::Ptr<CalibControl> mController;
 		visualisationMode mVisMode;
 		bool mNeedUndistort;
 		double mGridVwScale;
 		double mTextSize;
-		void drawBoard(Mat& img, InputArray points);
-		void drawGridPoints(const Mat& frame);
+		void drawBoard(cv::Mat& img, cv::InputArray points);
+		void drawGridPoints(const cv::Mat& frame);
 	public:
-		ShowProc(Ptr<CalibData> data, Ptr<CalibControl> controller);
-		Mat processFrame(const Mat& frame) override;
+		ShowProc(cv::Ptr<CalibData> data, cv::Ptr<CalibControl> controller);
+		cv::Mat processFrame(const cv::Mat& frame) override;
 		bool isProcessed() const override;
 		void resetState() override {}
 		void setVisualizationMode(visualisationMode mode);

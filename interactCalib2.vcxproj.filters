@@ -30,9 +30,6 @@
     <ClInclude Include="FrameProc.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="paramsControl.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="calibPipeline.cpp">
@@ -48,9 +45,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FrameProc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="paramsControl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

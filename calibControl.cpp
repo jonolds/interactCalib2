@@ -1,41 +1,39 @@
 #include "calibControl.hpp"
-#include "calibCommon.hpp"
 #include <algorithm>
 #include <cmath>
 #include <ctime>
 #include <opencv2/calib3d.hpp>
 #include <opencv2/imgproc.hpp>
-#include <utility>
-using namespace std;
-using namespace cv;
+#include <time.h>
+
 
 double calib::CalibControl::estimateCoverageQuality() {
+	
 	int gridSize = 10;
 	int xGridStep = mCalibData->imgSz.width / gridSize;
 	int yGridStep = mCalibData->imgSz.height / gridSize;
-	vector<int> pointsInCell(gridSize * gridSize);
-	fill(pointsInCell.begin(), pointsInCell.end(), 0);
+	std::vector<int> pointsInCell(100, 0);
 
-	for (vector<vector<Point2f>>::iterator it = mCalibData->imgPts.begin(); it != mCalibData->imgPts.end(); ++it)
-		for (vector<Point2f>::iterator pointIt = (*it).begin(); pointIt != (*it).end(); ++pointIt) {
+	for (std::vector<std::vector<cv::Point2f>>::iterator it = mCalibData->imgPts.begin(); it != mCalibData->imgPts.end(); ++it)
+		for (std::vector<cv::Point2f>::iterator pointIt = (*it).begin(); pointIt != (*it).end(); ++pointIt) {
 			int i = (int)((*pointIt).x / xGridStep);
 			int j = (int)((*pointIt).y / yGridStep);
 			pointsInCell[i * gridSize + j]++;
 		}
-	for (vector<Mat>::iterator it = mCalibData->allCharCorns.begin(); it != mCalibData->allCharCorns.end(); ++it)
+	for (std::vector<cv::Mat>::iterator it = mCalibData->allCharCorns.begin(); it != mCalibData->allCharCorns.end(); ++it)
 		for (int l = 0; l < (*it).size[0]; l++) {
 			int i = (int)((*it).at<float>(l, 0) / xGridStep);
 			int j = (int)((*it).at<float>(l, 1) / yGridStep);
 			pointsInCell[i * gridSize + j]++;
 		}
-	Mat mean, stdDev;
+	cv::Mat mean, stdDev;
 	meanStdDev(pointsInCell, mean, stdDev);
 	return mean.at<double>(0) / (stdDev.at<double>(0) + 1e-7);
 }
 calib::CalibControl::CalibControl() {
 	mCalibFlags = 0;
 }
-calib::CalibControl::CalibControl(Ptr<CalibData> data, int initialFlags, bool autoTuning, int minFramesNum) :
+calib::CalibControl::CalibControl(cv::Ptr<CalibData> data, int initialFlags, bool autoTuning, int minFramesNum) :
 	mCalibData(std::move(data)) {
 	mCalibFlags = initialFlags;
 	mNeedTuning = autoTuning;
@@ -63,34 +61,34 @@ void calib::CalibControl::updateState() {
 	if (getFramesNumberState())
 		mCoverageQualityState = estimateCoverageQuality() > 1.8;
 	if (getFramesNumberState() && mNeedTuning) {
-		if (!(mCalibFlags & CALIB_FIX_ASPECT_RATIO) &&
+		if (!(mCalibFlags & cv::CALIB_FIX_ASPECT_RATIO) &&
 			mCalibData->camMat.total()) {
 			double fDiff = fabs(mCalibData->camMat.at<double>(0, 0) -
 				mCalibData->camMat.at<double>(1, 1));
 			if (fDiff < 3 * mCalibData->stdDevs.at<double>(0) && fDiff < 3 * mCalibData->stdDevs.at<double>(1)) {
-				mCalibFlags |= CALIB_FIX_ASPECT_RATIO;
+				mCalibFlags |= cv::CALIB_FIX_ASPECT_RATIO;
 				mCalibData->camMat.at<double>(0, 0) = mCalibData->camMat.at<double>(1, 1);
 			}
 		}
-		if (!(mCalibFlags & CALIB_ZERO_TANGENT_DIST)) {
+		if (!(mCalibFlags & cv::CALIB_ZERO_TANGENT_DIST)) {
 			const double eps = 0.005;
 			if (fabs(mCalibData->distCos.at<double>(2)) < eps && fabs(mCalibData->distCos.at<double>(3)) < eps)
-				mCalibFlags |= CALIB_ZERO_TANGENT_DIST;
+				mCalibFlags |= cv::CALIB_ZERO_TANGENT_DIST;
 		}
-		if (!(mCalibFlags & CALIB_FIX_K1)) {
+		if (!(mCalibFlags & cv::CALIB_FIX_K1)) {
 			const double eps = 0.005;
 			if (fabs(mCalibData->distCos.at<double>(0)) < eps)
-				mCalibFlags |= CALIB_FIX_K1;
+				mCalibFlags |= cv::CALIB_FIX_K1;
 		}
-		if (!(mCalibFlags & CALIB_FIX_K2)) {
+		if (!(mCalibFlags & cv::CALIB_FIX_K2)) {
 			const double eps = 0.005;
 			if (fabs(mCalibData->distCos.at<double>(1)) < eps)
-				mCalibFlags |= CALIB_FIX_K2;
+				mCalibFlags |= cv::CALIB_FIX_K2;
 		}
-		if (!(mCalibFlags & CALIB_FIX_K3)) {
+		if (!(mCalibFlags & cv::CALIB_FIX_K3)) {
 			const double eps = 0.005;
 			if (fabs(mCalibData->distCos.at<double>(4)) < eps)
-				mCalibFlags |= CALIB_FIX_K3;
+				mCalibFlags |= cv::CALIB_FIX_K3;
 		}
 	}
 }
@@ -101,7 +99,7 @@ bool calib::CalibControl::getCommonCalibrationState() const {
 	return rating == 4;
 }
 bool calib::CalibControl::getFramesNumberState() const {
-	return max(mCalibData->imgPts.size(), mCalibData->allCharCorns.size()) > mMinFramesNum;
+	return std::max(mCalibData->imgPts.size(), mCalibData->allCharCorns.size()) > mMinFramesNum;
 }
 bool calib::CalibControl::getConfidenceIntrervalsState() const {
 	return mConfIntervalsState;
@@ -114,49 +112,49 @@ int calib::CalibControl::getNewFlags() const {
 }
 
 //////////////////// CalibDataControl
-double calib::CalibDataControl::estimateGridSubsetQuality(size_t excludedIndex) {
+double calib::CalibDataControl::estimateGridSubsetQuality(unsigned excludedIndex) {
 	{
 		int gridSize = 10;
 		int xGridStep = mCalibData->imgSz.width / gridSize;
 		int yGridStep = mCalibData->imgSz.height / gridSize;
-		vector<int> pointsInCell(gridSize * gridSize);
-		fill(pointsInCell.begin(), pointsInCell.end(), 0);
-		for (size_t k = 0; k < mCalibData->imgPts.size(); k++)
+		std::vector<int> pointsInCell(gridSize * gridSize, 0);
+		//fill(pointsInCell.begin(), pointsInCell.end(), 0);
+		for (unsigned k = 0; k < mCalibData->imgPts.size(); k++)
 			if (k != excludedIndex)
-				for (vector<Point2f>::iterator pointIt = mCalibData->imgPts[k].begin(); pointIt != mCalibData->imgPts[k].
+				for (std::vector<cv::Point2f>::iterator pointIt = mCalibData->imgPts[k].begin(); pointIt != mCalibData->imgPts[k].
 				     end(); ++pointIt) {
 					int i = (int)((*pointIt).x / xGridStep);
 					int j = (int)((*pointIt).y / yGridStep);
 					pointsInCell[i * gridSize + j]++;
 				}
 
-		for (size_t k = 0; k < mCalibData->allCharCorns.size(); k++)
+		for (unsigned k = 0; k < mCalibData->allCharCorns.size(); k++)
 			if (k != excludedIndex)
 				for (int l = 0; l < mCalibData->allCharCorns[k].size[0]; l++) {
 					int i = (int)(mCalibData->allCharCorns[k].at<float>(l, 0) / xGridStep);
 					int j = (int)(mCalibData->allCharCorns[k].at<float>(l, 1) / yGridStep);
 					pointsInCell[i * gridSize + j]++;
 				}
-		Mat mean, stdDev;
+		cv::Mat mean, stdDev;
 		meanStdDev(pointsInCell, mean, stdDev);
 		return mean.at<double>(0) / (stdDev.at<double>(0) + 1e-7);
 	}
 }
 
-calib::CalibDataControl::CalibDataControl(Ptr<CalibData> data, int maxFrames, double convParameter) :
-	mCalibData(move(data)), mParamsFileName("CamParams.xml") {
+calib::CalibDataControl::CalibDataControl(cv::Ptr<CalibData> data, int maxFrames, double convParameter) :
+	mCalibData(std::move(data)), mParamsFileName("CamParams.xml") {
 	mMaxFramesNum = maxFrames;
 	mAlpha = convParameter;
 }
 calib::CalibDataControl::CalibDataControl() = default;
 
 void calib::CalibDataControl::filterFrames() {
-	size_t numberOfFrames = max(mCalibData->allCharIds.size(), mCalibData->imgPts.size());
+	unsigned numberOfFrames = (unsigned)std::max(mCalibData->allCharIds.size(), mCalibData->imgPts.size());
 	CV_Assert(numberOfFrames == mCalibData->perViewErrors.total());
 	if (numberOfFrames >= mMaxFramesNum) {
 		double worstValue = -HUGE_VAL, maxQuality = estimateGridSubsetQuality(numberOfFrames);
-		std::size_t worstElemIndex = 0;
-		for (size_t i = 0; i < numberOfFrames; i++) {
+		unsigned worstElemIndex = 0;
+		for (unsigned i = 0; i < numberOfFrames; i++) {
 			double gridQDelta = estimateGridSubsetQuality(i) - maxQuality;
 			double currentValue = mCalibData->perViewErrors.at<double>((int)i) * mAlpha + gridQDelta * (1. - mAlpha);
 			if (currentValue > worstValue) {
@@ -164,7 +162,7 @@ void calib::CalibDataControl::filterFrames() {
 				worstElemIndex = i;
 			}
 		}
-		showOverlayMessage(format("Frame %d is worst\n", worstElemIndex + 1));
+		showOverlayMessage(cv::format("Frame %d is worst\n", worstElemIndex + 1));
 		if (!mCalibData->imgPts.empty()) {
 			mCalibData->imgPts.erase(mCalibData->imgPts.begin() + worstElemIndex);
 			mCalibData->objPts.erase(mCalibData->objPts.begin() + worstElemIndex);
@@ -174,15 +172,15 @@ void calib::CalibDataControl::filterFrames() {
 			mCalibData->allCharIds.erase(mCalibData->allCharIds.begin() + worstElemIndex);
 		}
 
-		Mat newErrorsVec = Mat((int)numberOfFrames - 1, 1, CV_64F);
-		copy(mCalibData->perViewErrors.ptr<double>(0), mCalibData->perViewErrors.ptr<double>((int)worstElemIndex), newErrorsVec.ptr<double>(0));
-		copy(mCalibData->perViewErrors.ptr<double>((int)worstElemIndex + 1), mCalibData->perViewErrors.ptr<double>((int)numberOfFrames),
+		cv::Mat newErrorsVec = cv::Mat((int)numberOfFrames - 1, 1, CV_64F);
+		std::copy(mCalibData->perViewErrors.ptr<double>(0), mCalibData->perViewErrors.ptr<double>((int)worstElemIndex), newErrorsVec.ptr<double>(0));
+		std::copy(mCalibData->perViewErrors.ptr<double>((int)worstElemIndex + 1), mCalibData->perViewErrors.ptr<double>((int)numberOfFrames),
 		          newErrorsVec.ptr<double>((int)worstElemIndex));
 		mCalibData->perViewErrors = newErrorsVec;
 	}
 }
 
-void calib::CalibDataControl::setParametersFileName(const string& name) {
+void calib::CalibDataControl::setParametersFileName(const std::string& name) {
 	mParamsFileName = name;
 }
 
@@ -199,13 +197,13 @@ void calib::CalibDataControl::deleteLastFrame() {
 		mCalibData->camMat = (mParamsStack.top()).camMat;
 		mCalibData->distCos = (mParamsStack.top()).distCos;
 		mCalibData->stdDevs = (mParamsStack.top()).stdDevs;
-		mCalibData->totalAvgErr = (mParamsStack.top()).avgError;
+		mCalibData->totalAvgErr = (mParamsStack.top()).avgErr;
 		mParamsStack.pop();
 	}
 }
 
 void calib::CalibDataControl::rememberCurrentParameters() {
-	Mat oldCameraMat, oldDistcoeefs, oldStdDevs;
+	cv::Mat oldCameraMat, oldDistcoeefs, oldStdDevs;
 	mCalibData->camMat.copyTo(oldCameraMat);
 	mCalibData->distCos.copyTo(oldDistcoeefs);
 	mCalibData->stdDevs.copyTo(oldStdDevs);
@@ -217,15 +215,15 @@ void calib::CalibDataControl::deleteAllData() {
 	mCalibData->objPts.clear();
 	mCalibData->allCharCorns.clear();
 	mCalibData->allCharIds.clear();
-	mCalibData->camMat = mCalibData->distCos = Mat();
-	mParamsStack = stack<CamParams>();
+	mCalibData->camMat = mCalibData->distCos = cv::Mat();
+	mParamsStack = std::stack<CamParams>();
 	rememberCurrentParameters();
 }
 
 bool calib::CalibDataControl::saveCurrentCameraParameters() const {
 	bool success = false;
 	if (mCalibData->camMat.total()) {
-		FileStorage parametersWriter(mParamsFileName, FileStorage::WRITE);
+		cv::FileStorage parametersWriter(mParamsFileName, cv::FileStorage::WRITE);
 		if (parametersWriter.isOpened()) {
 			time_t rawtime;
 			time(&rawtime);
@@ -233,12 +231,12 @@ bool calib::CalibDataControl::saveCurrentCameraParameters() const {
 			strftime(buf, sizeof(buf) - 1, "%c", localtime(&rawtime));
 
 			parametersWriter << "calibrationDate" << buf;
-			parametersWriter << "framesCount" << max((int)mCalibData->objPts.size(), (int)mCalibData->allCharCorns.size());
+			parametersWriter << "framesCount" << std::max((int)mCalibData->objPts.size(), (int)mCalibData->allCharCorns.size());
 			parametersWriter << "cameraResolution" << mCalibData->imgSz;
 			parametersWriter << "camMat" << mCalibData->camMat;
-			parametersWriter << "cameraMatrix_std_dev" << mCalibData->stdDevs.rowRange(Range(0, 4));
+			parametersWriter << "cameraMatrix_std_dev" << mCalibData->stdDevs.rowRange(cv::Range(0, 4));
 			parametersWriter << "dist_coeffs" << mCalibData->distCos;
-			parametersWriter << "dist_coeffs_std_dev" << mCalibData->stdDevs.rowRange(Range(4, 9));
+			parametersWriter << "dist_coeffs_std_dev" << mCalibData->stdDevs.rowRange(cv::Range(4, 9));
 			parametersWriter << "avg_reprojection_error" << mCalibData->totalAvgErr;
 			parametersWriter.release();
 			success = true;
@@ -247,27 +245,27 @@ bool calib::CalibDataControl::saveCurrentCameraParameters() const {
 	return success;
 }
 
-void calib::CalibDataControl::printParametersToConsole(ostream& output) const {
+void calib::CalibDataControl::printParametersToConsole(std::ostream& output) const {
 	const char* border = "---------------------------------------------------";
-	output << border << endl;
-	output << "Frames used for calibration: " << max(mCalibData->objPts.size(), mCalibData->allCharCorns.size())
-		<< " \t RMS = " << mCalibData->totalAvgErr << endl;
+	output << border << std::endl;
+	output << "Frames used for calibration: " << std::max(mCalibData->objPts.size(), mCalibData->allCharCorns.size())
+		<< " \t RMS = " << mCalibData->totalAvgErr << std::endl;
 	if (mCalibData->camMat.at<double>(0, 0) == mCalibData->camMat.at<double>(1, 1))
-		output << "F = " << mCalibData->camMat.at<double>(1, 1) << " +- " << sigmaMult * mCalibData->stdDevs.at<double>(1) << endl;
+		output << "F = " << mCalibData->camMat.at<double>(1, 1) << " +- " << sigmaMult * mCalibData->stdDevs.at<double>(1) << std::endl;
 	else
 		output << "Fx = " << mCalibData->camMat.at<double>(0, 0) << " +- " << sigmaMult * mCalibData->stdDevs.at<double>(0) << " \t "
-			<< "Fy = " << mCalibData->camMat.at<double>(1, 1) << " +- " << sigmaMult * mCalibData->stdDevs.at<double>(1) << endl;
+			<< "Fy = " << mCalibData->camMat.at<double>(1, 1) << " +- " << sigmaMult * mCalibData->stdDevs.at<double>(1) << std::endl;
 	output << "Cx = " << mCalibData->camMat.at<double>(0, 2) << " +- " << sigmaMult * mCalibData->stdDevs.at<double>(2) << " \t"
-		<< "Cy = " << mCalibData->camMat.at<double>(1, 2) << " +- " << sigmaMult * mCalibData->stdDevs.at<double>(3) << endl;
-	output << "K1 = " << mCalibData->distCos.at<double>(0) << " +- " << sigmaMult * mCalibData->stdDevs.at<double>(4) << endl;
-	output << "K2 = " << mCalibData->distCos.at<double>(1) << " +- " << sigmaMult * mCalibData->stdDevs.at<double>(5) << endl;
-	output << "K3 = " << mCalibData->distCos.at<double>(4) << " +- " << sigmaMult * mCalibData->stdDevs.at<double>(8) << endl;
-	output << "TD1 = " << mCalibData->distCos.at<double>(2) << " +- " << sigmaMult * mCalibData->stdDevs.at<double>(6) << endl;
-	output << "TD2 = " << mCalibData->distCos.at<double>(3) << " +- " << sigmaMult * mCalibData->stdDevs.at<double>(7) << endl;
+		<< "Cy = " << mCalibData->camMat.at<double>(1, 2) << " +- " << sigmaMult * mCalibData->stdDevs.at<double>(3) << std::endl;
+	output << "K1 = " << mCalibData->distCos.at<double>(0) << " +- " << sigmaMult * mCalibData->stdDevs.at<double>(4) << std::endl;
+	output << "K2 = " << mCalibData->distCos.at<double>(1) << " +- " << sigmaMult * mCalibData->stdDevs.at<double>(5) << std::endl;
+	output << "K3 = " << mCalibData->distCos.at<double>(4) << " +- " << sigmaMult * mCalibData->stdDevs.at<double>(8) << std::endl;
+	output << "TD1 = " << mCalibData->distCos.at<double>(2) << " +- " << sigmaMult * mCalibData->stdDevs.at<double>(6) << std::endl;
+	output << "TD2 = " << mCalibData->distCos.at<double>(3) << " +- " << sigmaMult * mCalibData->stdDevs.at<double>(7) << std::endl;
 }
 
 void calib::CalibDataControl::updateUndistortMap() {
-	Mat newCamMat = getOptimalNewCameraMatrix(mCalibData->camMat, mCalibData->distCos, mCalibData->imgSz, 0.0, mCalibData->imgSz);
-	initUndistortRectifyMap(mCalibData->camMat, mCalibData->distCos, noArray(),
-		newCamMat, mCalibData->imgSz, CV_16SC2, mCalibData->undistMap1, mCalibData->undistMap2);
+	cv::Mat camMat = getOptimalNewCameraMatrix(mCalibData->camMat, mCalibData->distCos, mCalibData->imgSz, 0.0, mCalibData->imgSz);
+	initUndistortRectifyMap(mCalibData->camMat, mCalibData->distCos, cv::noArray(),
+		camMat, mCalibData->imgSz, CV_16SC2, mCalibData->undistMap1, mCalibData->undistMap2);
 }

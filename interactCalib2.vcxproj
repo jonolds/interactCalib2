@@ -15,7 +15,6 @@
     <ClInclude Include="calibControl.hpp" />
     <ClInclude Include="calibPipeline.hpp" />
     <ClInclude Include="FrameProc.hpp" />
-    <ClInclude Include="paramsControl.hpp" />
     <ClInclude Include="rotationConverters.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -23,7 +22,6 @@
     <ClCompile Include="calibPipeline.cpp" />
     <ClCompile Include="FrameProc.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="paramsControl.cpp" />
     <ClCompile Include="rotationConverters.cpp" />
   </ItemGroup>
   <ItemGroup>
